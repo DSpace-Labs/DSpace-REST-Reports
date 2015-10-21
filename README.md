@@ -111,7 +111,7 @@ rest-report-thumbnail-min-size = 400
 rest-report-gen-thumbnail-desc = Generated Thumbnail
 ```
 
-#### Metadata Filterirng
+#### Metadata Filtering
 _If org.dspace.rest.filter.ItemFilterDefsMeta is enabled, the following regular expressions will be used_
 
 ```
