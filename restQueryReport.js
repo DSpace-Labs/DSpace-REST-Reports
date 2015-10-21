@@ -18,7 +18,7 @@ var QueryReport = function() {
 			"query_field[]" : [],
 			"query_op[]"    : [],
 			"query_val[]"   : [],
-			"collSel"       : $("#collSel").val(),
+			"collSel[]"       : $("#collSel").val(),
 			limit           : this.myReportParameters.getLimit(),
 			offset          : this.myReportParameters.getOffset(),
 			"expand"        : "parentCollection,metadata",
@@ -35,6 +35,7 @@ var QueryReport = function() {
 
 	this.init = function() {
 	    this.baseInit();	
+		var communitySelector = new CommunitySelector(this, $("#collSelector"), this.myReportParameters.params["collSel[]"]);
 	}
 	
 	this.initMetadataFields = function() {
@@ -147,7 +148,6 @@ $(document).ready(function(){
 	var myReport=new QueryReport();
 	myReport.init();
 });
-
 
 var QueryableMetadataFields = function(report) {
 	MetadataFields.call(this, report);

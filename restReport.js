@@ -397,13 +397,13 @@ var HtmlUtil = function() {
 	}
 
 	this.addOpt = function(sel, name, val) {
-		var opt = createOpt(name, val);
+		var opt = this.createOpt(name, val);
 		sel.append(opt);
 		return opt;
 	}
 
 	this.addDisabledOpt = function(sel, name, val) {
-		var opt = createOpt(name, val).attr("disabled",true);
+		var opt = this.createOpt(name, val).attr("disabled",true);
 		sel.append(opt);
 		return opt;
 	}
@@ -423,4 +423,61 @@ var HtmlUtil = function() {
 		$($("#table tr.header th")[index]).find("span.num").text(total);
 	}
 
+}
+
+var CommunitySelector = function(report, parent, paramCollSel) {
+	var self = this;
+	var collSel = $("<select/>").attr("id","collSel").attr("name","collSel").attr("multiple", true).attr("size",15);
+	parent.append(collSel);
+	report.myHtmlUtil.addOpt(collSel, "Whole Repository", "");
+	
+	$.ajax({
+		url: "/rest/communities",
+		data: {
+			limit : report.COLL_LIMIT,
+			expand : "subCommunities,collections"
+		},
+		dataType: "json",
+		headers: report.myAuth.getHeaders(),
+		success: function(data){
+			var collSel = $("#collSel");
+			var COMMS = {};
+			var TOPCOMMS = {};
+			$.each(data, function(index, comm){
+				COMMS["comm"+comm.uuid] = comm;
+				TOPCOMMS["comm"+comm.uuid] = comm;
+			});
+			$.each(data, function(index, comm){
+				$.each(comm.subcommunities, function(index, scomm){
+					delete TOPCOMMS["comm"+scomm.uuid];
+				});
+			});
+			for(var commindex in TOPCOMMS) {
+				self.addCommLabel(collSel, COMMS, COMMS[commindex], 0, paramCollSel);
+			};
+		}
+	});	
+
+	this.addCommLabel = function(collSel, COMMS, comm, indent, paramCollSel) {
+		var prefix = "";
+		for(var i=0; i<indent; i++) {
+			prefix += "--";
+		}
+		report.myHtmlUtil.addDisabledOpt(collSel, prefix + comm.name, "comm" + comm.uuid);
+		if (comm.collections != null) {
+			$.each(comm.collections, function(index, coll) {
+				var opt = report.myHtmlUtil.addOpt(collSel, prefix + "--" + coll.name, coll.uuid);
+				$.each(paramCollSel, function(index, collid){
+					if (collid == coll.uuid) {
+						opt.attr("selected", true);
+					}
+				});
+			});		
+		}
+		if (comm.subcommunities != null) {
+			$.each(comm.subcommunities, function(index, scomm) {
+				self.addCommLabel(collSel, COMMS, COMMS["comm"+scomm.uuid], indent + 1, paramCollSel);
+			});		
+		}
+	}
 }
