@@ -49,6 +49,13 @@ rest-report-url.collections = ../static/rest/index.html
 rest-report-url.item-query = ../static/rest/query.html
 ```
 
+##### database specific way to format a regex SQL clause #####
+```
+# The REST Report Tools may pass a regular expression test to the database.  
+# The following configuration setting will construct a SQL regular expression test appropriate to your database engine
+rest-regex-clause = text_value ~ ?
+```
+
 #### Configure the list of filters that are useful to your repository managers.
 ```
 # A filter contains a set of tests that will be applied to an item to determine its inclusion in a particular report.
