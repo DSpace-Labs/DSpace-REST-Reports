@@ -4,7 +4,7 @@ Add-on Reporting Tools for Collection Managers built on the REST API
 # DSpace-Rest-Reports
 This is a sample javaScript application that uses the DSpace REST API to perform quality control reporting.
 
-[Report Screenshots](https://github.com/Georgetown-University-Libraries/DSpace-Rest-Reports/releases/tag/v0.1)
+[Report Screenshots](https://github.com/DSpace-Labs/DSpace-REST-Reports/wiki)
 
 ## Pre-requisites
 * Determine the access that you will grant to your REST api since these reporting tools can be configured to run without authentication.
