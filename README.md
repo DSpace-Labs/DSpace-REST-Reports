@@ -1,8 +1,15 @@
-# DSpace-REST-Reports
-Add-on Reporting Tools for Collection Managers built on the REST API
+This project is intended as an optional add-on to DSpace to provide Quality Control Reporting for Collection Managers.
 
-# DSpace-Rest-Reports
-This is a sample javaScript application that uses the DSpace REST API to perform quality control reporting.
+These reports utilize the DSpace REST API to provide a Collection Manager with
+
+* an overview of their collections
+* a tool to query metadata for consistency
+
+When deploying the DSpace REST API, and institution may choose to make the API publicly accessible or to restrict access to the API.
+If these reports are deployed in a protected manner, the reporting tools can be configured to bypass DSpace authorization when reporting on collections and items.
+
+## Sample Screen Shots
+The wiki for this project contains screenshots that illustrate the capabilities of these reports.
 
 [Report Screenshots](https://github.com/DSpace-Labs/DSpace-REST-Reports/wiki)
 
@@ -10,14 +17,19 @@ This is a sample javaScript application that uses the DSpace REST API to perform
 * Determine the access that you will grant to your REST api since these reporting tools can be configured to run without authentication.
 * These tools can use *sorttable.js* which can be found at http://www.kryogenix.org/code/browser/sorttable/
 * If you enable sorttable, uncomment sorttable.makeSortable(...) in the js files 
-* Install this code into dspace/modules/xmlui/src/main/webapp/static/rest
+* Install this code into dspace/modules/xmlui/src/main/webapp/static/rest (or to a path of your choosing)
 * Update the dspace/config/modules/rest.cfg 
 
-### rest.cfg: Enable the reporting tools to report on all items (regardless of authorization)
-_Do not enable this feature if your REST API has not been secured_
+# rest.cfg: Configure the REST Reporting features
+
+## Enable/Disable object authorization for report calls
 
 ```
-# require authentication for filtered-items and filtered-collections (de
+# Enable/disable authorization for the reporting tools.
+# By default, the DSpace REST API will only return communities/collections/items that are accessible to a particular user.
+# If the REST API has been deployed in a protected manner, the reporting tools can be configured to bypass authorization checks.
+# This will allow all items/collections/communities to be returned to the report user.
+# Set the rest-reporting-authenticate option to false to bypass authorization
 rest-reporting-authenticate = false
 ```
 
