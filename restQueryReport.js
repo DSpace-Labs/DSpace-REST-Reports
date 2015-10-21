@@ -70,7 +70,7 @@ var QueryReport = function() {
 		self.myHtmlUtil.addTh(tr, "id");
 		self.myHtmlUtil.addTh(tr, "collection");
 		self.myHtmlUtil.addTh(tr, "Item Handle");
-		self.myHtmlUtil.addTh(tr, "Title");
+		self.myHtmlUtil.addTh(tr, "dc.title");
 		
 		var mdCols = [];
 		if (data.metadata) {
@@ -122,6 +122,24 @@ var QueryReport = function() {
 		$("#metadatadiv").accordion("option", "active", $("#metadatadiv > h3").length - 1); 
 	}
 	
+	//Ignore the first column containing a row number and the item handle, get handle for the collection
+	this.exportCol = function(colnum, col) {
+		var data = "";
+		if (colnum == 0) return "";
+		if (colnum == 3) return "";
+		data += (colnum == 1) ? "" : ",";
+		
+		if (colnum == 2) {
+			var anchor = $(col).find("a");
+			var href = anchor.is("a") ? anchor.attr("href").replace(/\/handle\//,"") : $(col).text();
+			data += "\"" + href + "\"";
+		} else {
+			$(col).contents().each(function(i, node){
+				data += self.exportCell(node);
+			});			
+		}
+		return data;
+	}
 }
 QueryReport.prototype = Object.create(Report.prototype);
 

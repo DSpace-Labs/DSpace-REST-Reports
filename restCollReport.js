@@ -232,9 +232,9 @@ var CollReport = function() {
 		//itbl.find("tr").remove("*");
 		var tr = self.myHtmlUtil.addTr(itbl).addClass("header");
 		self.myHtmlUtil.addTh(tr, "Num").addClass("num").addClass("sorttable_numeric");
-		self.myHtmlUtil.addTh(tr, "Id");
+		self.myHtmlUtil.addTh(tr, "id");
 		self.myHtmlUtil.addTh(tr, "Handle");
-		self.myHtmlUtil.addTh(tr, "Item").addClass("title");
+		self.myHtmlUtil.addTh(tr, "dc.title").addClass("title");
 		var fields = $("#show-fields select").val();
 		if (fields != null) {
 			$.each(fields, function(index, field){
@@ -295,6 +295,18 @@ var CollReport = function() {
   	  		    self.spinner.stop();
 			}
 		});
+	}
+
+	//Ignore the first column containing a row number and the item handle
+	this.exportCol = function(colnum, col) {
+		var data = "";
+		if (colnum == 0) return "";
+		if (colnum == 2) return "";
+		data += (colnum == 1) ? "" : ",";
+		$(col).contents().each(function(i, node){
+			data += self.exportCell(node);
+		});
+		return data;
 	}
 }
 CollReport.prototype = Object.create(Report.prototype);

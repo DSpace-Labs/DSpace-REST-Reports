@@ -77,7 +77,7 @@ var Report = function() {
 	        active: $("#metadatadiv > h3").length - 2
 	    });
 		$("#export").click(function(){
-			this.export($("#itemtable tr"));
+			self.export($("#itemtable tr"));
 	    });
 		$("a.this-search").on("click",function(){
 			self.saveUrl();
@@ -91,7 +91,7 @@ var Report = function() {
 		rows.each(function(rownum, row){
 			itemdata += (rownum == 0) ? "" : "\r\n";
 			$(row).find("td,th").each(function(colnum, col){
-				itemdata += this.exportCol(colnum, col);
+				itemdata += self.exportCol(colnum, col);
 			});
 		});
 		var encodedUri = encodeURI(itemdata);
@@ -101,15 +101,14 @@ var Report = function() {
 	//this is meant to be overridden for each report
 	this.exportCol = function(colnum, col) {
 		var data = "";
-		if (colnum == 0) return;
-		data += (colnum == 1) ? "" : ",";
+		data += (colnum == 0) ? "" : ",";
 		$(col).contents().each(function(i, node){
-			data += this.exportCell(i, node);
+			data += self.exportCell(node);
 		});
 		return data;
 	}
 	
-	this.exportCell = function(i, node) {
+	this.exportCell = function(node) {
 		var data = "\"";
 		if ($(node).is("hr")) {
 			data += "||";
