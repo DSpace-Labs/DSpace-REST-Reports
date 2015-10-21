@@ -72,6 +72,7 @@ plugin.sequence.org.dspace.rest.filter.ItemFilterList = \
 #     org.dspace.rest.filter.ItemFilterDefsMeta,\
 ```
 #### Configure settings used by REST report filters
+_Only define the settings used by the filters that you have enabled_
 ```
 # Define the set of supported bitstream bundle names for your repository as a comma separated list
 rest-report-supp-bundles = ORIGINAL,THUMBNAIL,TEXT,LICENSE
@@ -108,11 +109,15 @@ rest-report-thumbnail-min-size = 400
 # The ImageMagick Thumbnail generator tags the thumbnails it has created with a standard description.
 # This description identifies thumbnails that can safely be re-generated.
 rest-report-gen-thumbnail-desc = Generated Thumbnail
+```
 
+#### Metadata Filterirng
+_If org.dspace.rest.filter.ItemFilterDefsMeta is enabled, the following regular expressions will be used_
+
+```
 # Used by org.dspace.rest.filter.ItemFilterDefsMeta
 # This class filters items based on metadata properties.
 # These filters are useful for filtering a small set of items.  These filters will be inefficient as a query tool.
-# -----------------------------------
 
 # regex to detect compound subjects - detect subject terms that should be split into individual terms
 rest-report-regex-compound-subject = .*;.*
