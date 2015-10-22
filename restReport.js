@@ -102,19 +102,22 @@ var Report = function() {
 	this.exportCol = function(colnum, col) {
 		var data = "";
 		data += (colnum == 0) ? "" : ",";
-		$(col).contents().each(function(i, node){
-			data += self.exportCell(node);
-		});
+		data += self.exportCell(col);
 		return data;
 	}
 	
-	this.exportCell = function(node) {
-		var data = "\"";
-		if ($(node).is("hr")) {
-			data += "||";
-		} else {
-			data += $(node).text().replace(/\n/g," ").replace(/"/g,"'");							
-		}		
+	this.exportCell = function(col) {
+		data = "\"";
+		$(col).contents().each(function(i, node){
+			if ($(node).is("hr")) {
+				data += "||";
+			} else {
+				data += $(node).text().replace(/\n/g," ").replace(/"/g,"'");
+				if ($(node).is("div:not(:last-child)")) {
+					data += "||";
+				}
+			}		
+		});
 		data += "\"";
 		return data;
 	}

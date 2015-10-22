@@ -303,9 +303,7 @@ var CollReport = function() {
 		if (colnum == 0) return "";
 		if (colnum == 2) return "";
 		data += (colnum == 1) ? "" : ",";
-		$(col).contents().each(function(i, node){
-			data += self.exportCell(node);
-		});
+		data += self.exportCell(col);
 		return data;
 	}
 }

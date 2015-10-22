@@ -135,10 +135,7 @@ var QueryReport = function() {
 			var href = anchor.is("a") ? anchor.attr("href").replace(/\/handle\//,"") : $(col).text();
 			data += "\"" + href + "\"";
 		} else {
-			$(col).contents().each(function(i, node){
-				data += self.exportCell(node);
-			});			
-		}
+			data += self.exportCell(col);		}
 		return data;
 	}
 }
