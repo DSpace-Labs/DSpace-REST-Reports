@@ -29,7 +29,7 @@ The wiki for this project contains screenshots that illustrate the capabilities 
 ```
 var CollReport = function() {
 	Report.call(this);
-`
+```
 TO
 ```
 var CollReport = function() {
