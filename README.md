@@ -17,10 +17,9 @@ The wiki for this project contains screenshots that illustrate the capabilities 
 * **DSpace6** including https://github.com/DSpace/DSpace/pull/1086
 * **DSpace5** See [Using this code with DSpace5](https://github.com/DSpace-Labs/DSpace-REST-Reports/wiki/Using-these-reports-with-DSpace-5)
 * Determine the access that you will grant to your REST api since these reporting tools can be configured to run without authentication.
-* These tools can use *sorttable.js* which can be found at http://www.kryogenix.org/code/browser/sorttable/
-* If you enable sorttable, uncomment sorttable.makeSortable(...) in the js files 
 * Install this code into dspace/modules/xmlui/src/main/webapp/static/rest (or to a path of your choosing)
 * Update the dspace/config/modules/rest.cfg 
+* [Enabling Sortable Report Tables](https://github.com/DSpace-Labs/DSpace-REST-Reports/wiki/Using-these-reports-with-DSpace-5)
 
 ## rest.cfg: Configure the REST Reporting features
 
