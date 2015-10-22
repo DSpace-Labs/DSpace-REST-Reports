@@ -14,6 +14,8 @@ The wiki for this project contains screenshots that illustrate the capabilities 
 [Report Screenshots](https://github.com/DSpace-Labs/DSpace-REST-Reports/wiki)
 
 ## Pre-requisites
+* **DSpace6** - Install https://github.com/DSpace/DSpace/pull/1086
+* **DSpace5** - Install https://github.com/DSpace/DSpace/pull/1062
 * Determine the access that you will grant to your REST api since these reporting tools can be configured to run without authentication.
 * These tools can use *sorttable.js* which can be found at http://www.kryogenix.org/code/browser/sorttable/
 * If you enable sorttable, uncomment sorttable.makeSortable(...) in the js files 
