@@ -1,5 +1,7 @@
 /*
   Created by Terry Brady, Georgetown University Library
+  This code is an optional add-on for DSpace.
+  https://github.com/DSpace-Labs/DSpace-REST-Reports
 */
 table {border-collapse: collapse;border-right:solid thin black;}
 table td, table th {border: thin solid black; padding: 4px;}
