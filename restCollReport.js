@@ -5,7 +5,9 @@
 */
 var CollReport = function() {
 	Report.call(this);
-	this.hasSorttable = false;
+	//If sortable.js is included, uncomment the following
+	//this.hasSorttable = function(){return true;}
+	
 	this.COLL_LIMIT = 25;
 	this.loadId = 0;
 	this.THREADS =11;
@@ -90,7 +92,7 @@ var CollReport = function() {
 			success: function(data){
 				$.each(data, function(index, coll){
 					var tr = self.myHtmlUtil.addTr($("#table tbody"));
-					tr.attr("cid", coll.uuid).attr("index",index + offset).addClass(index % 2 == 0 ? "odd data" : "even data");
+					tr.attr("cid", self.getId(coll)).attr("index",index + offset).addClass(index % 2 == 0 ? "odd data" : "even data");
 					self.myHtmlUtil.addTd(tr, index + offset + 1).addClass("num");
 					var parval = ""; 
 					
@@ -105,8 +107,8 @@ var CollReport = function() {
 					self.myHtmlUtil.addTdAnchor(tr, coll.name, "/handle/" + coll.handle).addClass("title");
 					var td = self.myHtmlUtil.addTd(tr, coll.numberItems).addClass("num").addClass("link");
 					td.on("click", function(){
-						self.drawItemTable(coll.uuid,'',0);
-						$("#icollection").val(coll.uuid);
+						self.drawItemTable(self.getId(coll),'',0);
+						$("#icollection").val(self.getId(coll));
 						$("#ifilter").val("");
 					});
 				});
@@ -117,7 +119,7 @@ var CollReport = function() {
 				}  
 				self.myHtmlUtil.totalCol(3);
 				$("#table").addClass("sortable");
-				if (self.hasSorttable) {
+				if (self.hasSorttable()) {
 					sorttable.makeSortable($("#table")[0]);					
 				}
 				self.spinner.stop();
@@ -209,7 +211,9 @@ var CollReport = function() {
 				
 				tr.removeClass("processing");
 				if (!$("#table tr.processing").is("*")) {
-					if (self.hasSorttable) {
+					if (self.hasSorttable()) {
+						$("#table").removeClass("sortable");
+						$("#table").addClass("sortable");
 						sorttable.makeSortable($("#table")[0]);						
 					}
 					var colcount = $("#table tr th").length;
@@ -267,7 +271,7 @@ var CollReport = function() {
 					var tr = self.myHtmlUtil.addTr(itbl);
 					tr.addClass(index % 2 == 0 ? "odd data" : "even data");
 					self.myHtmlUtil.addTd(tr, offset+index+1).addClass("num");
-					self.myHtmlUtil.addTd(tr, item.uuid);
+					self.myHtmlUtil.addTd(tr, self.getId(item));
 					self.myHtmlUtil.addTdAnchor(tr, item.handle, "/handle/" + item.handle);
 					self.myHtmlUtil.addTd(tr, item.name).addClass("ititle");
 					if (fields != null) {
@@ -292,7 +296,7 @@ var CollReport = function() {
 					function(){self.drawItemTable(cid, filter, offset + self.ITEM_LIMIT);}
 				);
 				
-				if (self.hasSorttable){
+				if (self.hasSorttable()){
 					sorttable.makeSortable(itbl[0]);					
 				}
 				$("#metadatadiv").accordion("option", "active", self.ACCIDX_ITEM); 

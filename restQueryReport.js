@@ -5,7 +5,10 @@
 */
 var QueryReport = function() {
 	Report.call(this);
-	this.hasSorttable = false;
+	
+	//If sortable.js is included, uncomment the following
+	//this.hasSorttable = function(){return true;}
+	
 	this.getDefaultParameters = function(){
 		return {
 			"collSel[]"     : [],
@@ -92,7 +95,7 @@ var QueryReport = function() {
 			var tr = self.myHtmlUtil.addTr(itbl);
 			tr.addClass(index % 2 == 0 ? "odd data" : "even data");
 			self.myHtmlUtil.addTd(tr, self.myReportParameters.getOffset()+index+1).addClass("num");
-			self.myHtmlUtil.addTd(tr, item.uuid);
+			self.myHtmlUtil.addTd(tr, self.getId(item));
 			if (item.parentCollection == null) {
 				self.myHtmlUtil.addTd(tr, "--");			
 			} else {
@@ -122,7 +125,7 @@ var QueryReport = function() {
 			function(){self.updateOffset(true);}
 		);
 		
-		if (this.hasSorttable) {
+		if (this.hasSorttable()) {
 			sorttable.makeSortable(itbl[0]);			
 		}
 		$("#metadatadiv").accordion("option", "active", $("#metadatadiv > h3").length - 1); 

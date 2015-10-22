@@ -8,6 +8,17 @@ var Report = function() {
 	this.COLL_LIMIT = 500;
 	this.COUNT_LIMIT = 500;
 	this.ITEM_LIMIT = 100;
+
+	//Override this to return obj.id for DSpace 5 versions
+	this.getId = function(obj) {
+		return obj.uuid;
+	}
+	
+	//Override this method is sortable.js has been included
+	this.hasSorttable = function() {
+		return false;
+	}
+	
 	this.getDefaultParameters = function(){
 		return {};
 	}
@@ -452,12 +463,12 @@ var CommunitySelector = function(report, parent, paramCollSel) {
 			var COMMS = {};
 			var TOPCOMMS = {};
 			$.each(data, function(index, comm){
-				COMMS["comm"+comm.uuid] = comm;
-				TOPCOMMS["comm"+comm.uuid] = comm;
+				COMMS["comm"+report.getId(comm)] = comm;
+				TOPCOMMS["comm"+report.getId(comm)] = comm;
 			});
 			$.each(data, function(index, comm){
 				$.each(comm.subcommunities, function(index, scomm){
-					delete TOPCOMMS["comm"+scomm.uuid];
+					delete TOPCOMMS["comm"+report.getId(scomm)];
 				});
 			});
 			for(var commindex in TOPCOMMS) {
@@ -471,12 +482,12 @@ var CommunitySelector = function(report, parent, paramCollSel) {
 		for(var i=0; i<indent; i++) {
 			prefix += "--";
 		}
-		report.myHtmlUtil.addDisabledOpt(collSel, prefix + comm.name, "comm" + comm.uuid);
+		report.myHtmlUtil.addDisabledOpt(collSel, prefix + comm.name, "comm" + report.getId(comm));
 		if (comm.collections != null) {
 			$.each(comm.collections, function(index, coll) {
-				var opt = report.myHtmlUtil.addOpt(collSel, prefix + "--" + coll.name, coll.uuid);
+				var opt = report.myHtmlUtil.addOpt(collSel, prefix + "--" + coll.name, report.getId(coll));
 				$.each(paramCollSel, function(index, collid){
-					if (collid == coll.uuid) {
+					if (collid == report.getId(coll)) {
 						opt.attr("selected", true);
 					}
 				});
@@ -484,7 +495,7 @@ var CommunitySelector = function(report, parent, paramCollSel) {
 		}
 		if (comm.subcommunities != null) {
 			$.each(comm.subcommunities, function(index, scomm) {
-				self.addCommLabel(collSel, COMMS, COMMS["comm"+scomm.uuid], indent + 1, paramCollSel);
+				self.addCommLabel(collSel, COMMS, COMMS["comm"+report.getId(scomm)], indent + 1, paramCollSel);
 			});		
 		}
 	}
