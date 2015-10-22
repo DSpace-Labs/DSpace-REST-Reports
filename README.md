@@ -14,13 +14,29 @@ The wiki for this project contains screenshots that illustrate the capabilities 
 [Report Screenshots](https://github.com/DSpace-Labs/DSpace-REST-Reports/wiki)
 
 ## Pre-requisites
-* **DSpace6** - Install https://github.com/DSpace/DSpace/pull/1086
-* **DSpace5** - Install https://github.com/DSpace/DSpace/pull/1062
+* DSpace6* including https://github.com/DSpace/DSpace/pull/1086
 * Determine the access that you will grant to your REST api since these reporting tools can be configured to run without authentication.
 * These tools can use *sorttable.js* which can be found at http://www.kryogenix.org/code/browser/sorttable/
 * If you enable sorttable, uncomment sorttable.makeSortable(...) in the js files 
 * Install this code into dspace/modules/xmlui/src/main/webapp/static/rest (or to a path of your choosing)
 * Update the dspace/config/modules/rest.cfg 
+
+## *Using this code with DSpace5
+* Install https://github.com/DSpace/DSpace/pull/1062
+* Add the following code into restCollReport.js and restQuery.js
+* Change the following to pull the correct id for each DSpace Object
+
+```
+var CollReport = function() {
+	Report.call(this);
+`
+TO
+```
+var CollReport = function() {
+	Report.call(this);
+	this.getId = function(obj) {return obj.id;}
+```
+
 
 ## rest.cfg: Configure the REST Reporting features
 
