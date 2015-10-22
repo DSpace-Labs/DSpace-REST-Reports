@@ -19,7 +19,7 @@ The wiki for this project contains screenshots that illustrate the capabilities 
 * Determine the access that you will grant to your REST api since these reporting tools can be configured to run without authentication.
 * Install this code into dspace/modules/xmlui/src/main/webapp/static/rest (or to a path of your choosing)
 * Update the dspace/config/modules/rest.cfg 
-* [Enabling Sortable Report Tables](https://github.com/DSpace-Labs/DSpace-REST-Reports/wiki/Using-these-reports-with-DSpace-5)
+* [Enabling Sortable Report Tables](https://github.com/DSpace-Labs/DSpace-REST-Reports/wiki/Enabling-Sortable-Report-Tables)
 
 ## rest.cfg: Configure the REST Reporting features
 
