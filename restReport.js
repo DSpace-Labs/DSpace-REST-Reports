@@ -1,3 +1,6 @@
+/*
+  Created by Terry Brady, Georgetown University Library
+*/
 var Report = function() {
 	var self = this;
 	this.COLL_LIMIT = 500;

@@ -1,3 +1,6 @@
+/*
+  Created by Terry Brady, Georgetown University Library
+*/
 table {border-collapse: collapse;border-right:solid thin black;}
 table td, table th {border: thin solid black; padding: 4px;}
 tr.header {background-color: #EEEEEE;}

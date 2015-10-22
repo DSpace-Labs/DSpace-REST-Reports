@@ -1,3 +1,6 @@
+/*
+  Created by Terry Brady, Georgetown University Library
+*/
 var CollReport = function() {
 	Report.call(this);
 	this.hasSorttable = false;

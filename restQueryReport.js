@@ -1,3 +1,6 @@
+/*
+  Created by Terry Brady, Georgetown University Library
+*/
 var QueryReport = function() {
 	Report.call(this);
 	this.hasSorttable = false;
