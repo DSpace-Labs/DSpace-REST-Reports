@@ -122,8 +122,6 @@ var CollReport = function() {
 				if (self.hasSorttable()) {
 					sorttable.makeSortable($("#table")[0]);					
 				}
-				self.spinner.stop();
-		  		$(".showCollections").attr("disabled", false);
 		  		
 		  		if (self.myFilters.getFilterList() != "") {
 		  			self.loadData();
@@ -131,6 +129,13 @@ var CollReport = function() {
 		  				self.drawItemTable($("#icollection").val(), $("#ifilter").val(), 0);
 		  			}
 		  		}
+			},
+			error: function(xhr, status, errorThrown) {
+				alert("Error in /rest/filtered-collections "+ status+ " " + errorThrown);
+			},
+			complete: function(xhr, status) {
+				self.spinner.stop();
+		  		$(".showCollections").attr("disabled", false);
 			}
 		});	
 	}
@@ -229,7 +234,14 @@ var CollReport = function() {
 						self.doRow(row+i, threads, curLoadId);
 					}					
 				}
-	 		}
+	 		},
+			error: function(xhr, status, errorThrown) {
+				alert("Error in /rest/filtered-collections "+ status+ " " + errorThrown);
+			},
+			complete: function(xhr, status) {
+				self.spinner.stop();
+		  		$(".showCollections").attr("disabled", false);
+			}
 		});
 	}			
 				
@@ -300,8 +312,13 @@ var CollReport = function() {
 					sorttable.makeSortable(itbl[0]);					
 				}
 				$("#metadatadiv").accordion("option", "active", self.ACCIDX_ITEM); 
-  	  		    $(".showCollections").attr("disabled", false);
-  	  		    self.spinner.stop();
+			},
+			error: function(xhr, status, errorThrown) {
+				alert("Error in /rest/filtered-collections "+ status+ " " + errorThrown);
+			},
+			complete: function(xhr, status) {
+				self.spinner.stop();
+	  			$(".showCollections").attr("disabled", false);
 			}
 		});
 	}
