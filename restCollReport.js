@@ -304,7 +304,7 @@ var CollReport = function() {
 				self.displayItems(filter + " Items in " + data.name, 
 					offset,
 					self.ITEM_LIMIT,
-					function(){self.drawItemTable(cid, filter, offset - self.ITEM_LIMIT ? 0 : offset - self.ITEM_LIMIT);},
+					function(){self.drawItemTable(cid, filter, (offset - self.ITEM_LIMIT < 0) ? 0 : offset - self.ITEM_LIMIT);},
 					function(){self.drawItemTable(cid, filter, offset + self.ITEM_LIMIT);}
 				);
 				
